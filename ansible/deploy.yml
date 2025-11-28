@@ -1,0 +1,26 @@
+- hosts: servers
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+    - name: Pull Backend Image
+      docker_image:
+        name: your-backend-image
+        source: pull
+    - name: Pull Frontend Image
+      docker_image:
+        name: your-frontend-image
+        source: pull
+    - name: Run Backend Container
+      docker_container:
+        name: backend
+        image: your-backend-image
+        ports:
+          - "5000:5000"
+    - name: Run Frontend Container
+      docker_container:
+        name: frontend
+        image: your-frontend-image
+        ports:
+          - "3000:3000"
